@@ -1,6 +1,10 @@
 package com.microservices.practice.microservices_project.user;
 
 import java.time.LocalDate;
+import java.util.List;
+
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -9,9 +13,12 @@ import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 
+@Document(collection = "user_details")
 @Getter
 @Setter
 public class User {
+	
+	@Id
 	private Integer id;
 	
 	@Size(min=2, message = "Name should have atleast 2 characters")
@@ -21,6 +28,8 @@ public class User {
 	@Past(message = "Birth Date should be in the Past")
 	@JsonProperty("birth-date")
 	private LocalDate birthDate;
+	
+
 	public User(Integer id, String name, LocalDate birthDate) {
 		super();
 		this.id = id;

@@ -7,10 +7,13 @@ import java.util.function.Predicate;
 
 import org.springframework.stereotype.Component;
 
+import com.microservices.practice.microservices_project.repositories.UserRepo;
 import com.microservices.practice.microservices_project.user.User;
 
 @Component
 public class UserDao {
+	
+	UserRepo userRepo;
 	private static List<User> users = new ArrayList<>();
 	private static int userCount = 0;
 	static {
@@ -20,7 +23,7 @@ public class UserDao {
 	}
 	
 	public List<User> findAll() {
-		return users;
+		return userRepo.findAll();
 	}
 	
 	public User findOne(int id) {
@@ -34,9 +37,8 @@ public class UserDao {
 	}
 	
 	public User save(User user) {
-		user.setId(++userCount);
-		users.add(user);
-		return user;
+		
+		return userRepo.save(user);
 	}
 
 }
